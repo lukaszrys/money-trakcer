@@ -18,7 +18,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>11</java.version>
   </properties>
-  
+
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -34,7 +34,27 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.3.1</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>io.projectreactor</groupId>
       <artifactId>reactor-test</artifactId>
@@ -47,6 +67,38 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.0</version>
+        <configuration>
+          <properties>
+            <excludeTags>IT</excludeTags>
+          </properties>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-surefire-provider</artifactId>
+            <version>1.1.0</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>2.22.0</version>
+        <executions>
+          <execution>
+            <id>integration-test</id>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
