@@ -49,6 +49,6 @@ class AccountControllerIT {
             .expectStatus()
             .is2xxSuccessful()
             .expectBody()
-            .jsonPath("$.body").isNotEmpty();
+            .jsonPath("$.data").isNotEmpty();
     }
 }
