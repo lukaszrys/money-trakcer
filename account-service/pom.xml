@@ -12,6 +12,8 @@
 
   <modelVersion>4.0.0</modelVersion>
   <artifactId>account-service</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>account-service</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -75,6 +77,7 @@
   </dependencies>
 
   <build>
+    <finalName>${name}</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>

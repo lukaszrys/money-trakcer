@@ -11,6 +11,16 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: account
     networks:
       - account
+  account-service:
+    build: ./account-service
+    restart: always
+    ports:
+    - "8080:8080"
+    depends_on:
+      - mongo-account
+    networks:
+      - account
+      - moneytracker
 
 networks:
   account:
