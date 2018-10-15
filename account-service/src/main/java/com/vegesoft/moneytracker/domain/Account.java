@@ -16,7 +16,7 @@ public final class Account {
     public Account(final UUID id, final Balance balance) {
         this.id = id;
         this.balance = balance;
-        this.status = AccountStatus.INACTIVE;
+        this.status = AccountStatus.BASIC;
     }
 
     public UUID getId() {
@@ -32,16 +32,24 @@ public final class Account {
     }
 
     public void addBalance(final Balance balance) {
+        checkStatus();
         if (balance.getAmount().compareTo(BigDecimal.ZERO) < 0) {
             throw new DomainLogicException("Added amount cannot be less than zero");
         }
         this.balance = new Balance(this.balance.getAmount().add(balance.getAmount()));
     }
 
-    public void substractBalance(final Balance balance) {
+    public void subtractBalance(final Balance balance) {
+        checkStatus();
         if (balance.getAmount().compareTo(BigDecimal.ZERO) < 0) {
             throw new DomainLogicException("Subtracted amount cannot be less than zero");
         }
         this.balance = new Balance(this.balance.getAmount().subtract(balance.getAmount()));
+    }
+
+    private void checkStatus() {
+        if (AccountStatus.INACTIVE.equals(status)) {
+            throw new DomainLogicException("Cannot make operations on inactive account");
+        }
     }
 }

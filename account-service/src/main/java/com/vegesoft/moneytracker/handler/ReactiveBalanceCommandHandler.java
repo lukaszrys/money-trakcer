@@ -32,7 +32,7 @@ class ReactiveBalanceCommandHandler implements BalanceCommandHandler {
     @Override
     public Mono<Void> subtractBalance(final UUID accountId, final SubtractBalanceCommand subtractBalanceCommand) {
         return Mono.just(accountId).flatMap(accountRepository::findById).map(account -> {
-            account.substractBalance(new Balance(subtractBalanceCommand.getAmount()));
+            account.subtractBalance(new Balance(subtractBalanceCommand.getAmount()));
             return account;
         }).map((Function<Account, Object>) accountRepository::save).then();
     }

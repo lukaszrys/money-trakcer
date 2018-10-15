@@ -31,7 +31,7 @@ class AccountTest {
         final Balance toSubtract = new Balance(amount);
         final Account account = createInitialAccount();
         //When
-        account.substractBalance(toSubtract);
+        account.subtractBalance(toSubtract);
         //Then
         assertEquals(amount.negate(), account.getBalance().getAmount());
     }
@@ -56,7 +56,7 @@ class AccountTest {
         final Balance toAdd = new Balance(amount);
         final Account account = createInitialAccount();
         //When
-        Assertions.assertThrows(DomainLogicException.class, () -> account.substractBalance(toAdd));
+        Assertions.assertThrows(DomainLogicException.class, () -> account.subtractBalance(toAdd));
         //Then was thrown
     }
 
