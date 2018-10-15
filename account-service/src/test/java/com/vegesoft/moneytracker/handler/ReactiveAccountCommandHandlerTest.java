@@ -34,9 +34,8 @@ class ReactiveAccountCommandHandlerTest {
         //Given
         final UUID id = UUID.randomUUID();
         final BigDecimal initialValue = BigDecimal.TEN;
-        final String currency = "USD";
-        final CreateAccountCommand createAccountCommand = new CreateAccountCommand(initialValue, currency);
-        final Account account = new Account(id, new Balance(initialValue, currency));
+        final CreateAccountCommand createAccountCommand = new CreateAccountCommand(initialValue);
+        final Account account = new Account(id, new Balance(initialValue));
 
         when(accountRepository.save(any(Account.class))).thenReturn(Mono.just(account));
         //When

@@ -32,7 +32,7 @@ class AccountRepositoryIT {
     void shouldExecute_crudOperations() {
         //Given
         final UUID id = UUID.randomUUID();
-        final Account account = new Account(id, new Balance(BigDecimal.TEN, "USD"));
+        final Account account = new Account(id, new Balance(BigDecimal.TEN));
         //When
         final Mono<Account> save = accountRepository.save(account);
         //Then

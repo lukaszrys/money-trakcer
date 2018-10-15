@@ -25,6 +25,6 @@ class ReactiveAccountCommandHandler implements AccountCommandHandler {
     }
 
     private Account mapToAccount(final UUID uuid, final CreateAccountCommand command) {
-        return new Account(uuid, new Balance(command.getInitialValue(), command.getCurrency()));
+        return new Account(uuid, new Balance(command.getInitialValue()));
     }
 }

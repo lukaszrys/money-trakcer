@@ -36,7 +36,7 @@ class AccountControllerIT {
     @DisplayName("Should save account to repository")
     void shouldSaveAccount_toRepository() {
         //Given
-        final CreateAccountCommand command = new CreateAccountCommand(BigDecimal.TEN, "USD");
+        final CreateAccountCommand command = new CreateAccountCommand(BigDecimal.TEN);
         //When
         final ResponseSpec exchange = webTestClient.post()
             .uri(API_ACCOUNTS)

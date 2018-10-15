@@ -4,7 +4,6 @@ import com.vegesoft.moneytracker.command.CreateAccountCommand;
 import com.vegesoft.moneytracker.handler.AccountCommandHandler;
 import com.vegesoft.moneytracker.rest.data.ResponseWrapper;
 import java.util.UUID;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
