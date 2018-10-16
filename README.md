@@ -1,4 +1,6 @@
-# money-trakcer
+[![Build Status](https://travis-ci.org/lukaszrys/money-tracker.svg?branch=develop)](https://travis-ci.org/lukaszrys/savemaker)
+
+# money-tracker 
 
 ## Account Service
 
