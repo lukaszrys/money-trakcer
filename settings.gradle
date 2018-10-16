@@ -1,2 +1,4 @@
 rootProject.name = 'money-tracker'
 include 'account-service'
+include 'account-history-service'
+

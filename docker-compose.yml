@@ -21,7 +21,16 @@ services:
     networks:
       - account
       - moneytracker
+  account-history-service:
+    build: ./account-history-service
+    restart: always
+    ports:
+    - "8090:8080"
+    networks:
+      - moneytracker
+      - account-history
 
 networks:
   account:
+  account-history:
   moneytracker:
