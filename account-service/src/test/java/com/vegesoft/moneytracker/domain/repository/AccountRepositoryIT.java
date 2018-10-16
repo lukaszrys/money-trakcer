@@ -38,7 +38,7 @@ class AccountRepositoryIT {
         //Then
         StepVerifier.create(save).assertNext(savedAccount -> {
             assertEquals(id, savedAccount.getId());
-            assertEquals(AccountStatus.INACTIVE, savedAccount.getStatus());
+            assertEquals(AccountStatus.BASIC, savedAccount.getStatus());
         }).expectComplete().verify();
     }
 }
