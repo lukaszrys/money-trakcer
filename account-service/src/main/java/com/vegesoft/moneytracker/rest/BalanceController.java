@@ -2,7 +2,9 @@ package com.vegesoft.moneytracker.rest;
 
 import com.vegesoft.moneytracker.command.AddBalanceCommand;
 import com.vegesoft.moneytracker.command.SubtractBalanceCommand;
+import com.vegesoft.moneytracker.handler.BalanceCommandHandler;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,15 +16,22 @@ import reactor.core.publisher.Mono;
 @Validated
 public class BalanceController {
 
+    private final BalanceCommandHandler balanceCommandHandler;
+
+    @Autowired
+    public BalanceController(final BalanceCommandHandler balanceCommandHandler) {
+        this.balanceCommandHandler = balanceCommandHandler;
+    }
+
+
     @PostMapping("/api/accounts/{accountId}/balance/add")
-    Mono<Void> add(@PathVariable final UUID accountId,
-        @RequestBody final AddBalanceCommand addBalanceCommand) {
-        return Mono.empty();
+    Mono<Void> add(@PathVariable final UUID accountId, @RequestBody final AddBalanceCommand addBalanceCommand) {
+        return balanceCommandHandler.handle(accountId, addBalanceCommand);
     }
 
     @PostMapping("/api/accounts/{accountId}/balance/subtract")
     Mono<Void> subtract(@PathVariable final UUID accountId,
         @RequestBody final SubtractBalanceCommand subtractBalanceCommand) {
-        return Mono.empty();
+        return balanceCommandHandler.handle(accountId, subtractBalanceCommand);
     }
 }

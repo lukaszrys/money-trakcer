@@ -40,7 +40,7 @@ class ReactiveBalanceCommandHandlerTest {
         when(accountRepository.findById(accountId)).thenReturn(Mono.just(account));
         when(accountRepository.save(account)).thenReturn(Mono.just(account));
         //When
-        final Mono<Void> handle = balanceCommandHandler.addBalance(accountId, addBalanceCommand);
+        final Mono<Void> handle = balanceCommandHandler.handle(accountId, addBalanceCommand);
         //Then
         StepVerifier.create(handle).expectComplete().verify();
         verify(accountRepository).findById(accountId);
@@ -61,7 +61,7 @@ class ReactiveBalanceCommandHandlerTest {
         when(accountRepository.findById(accountId)).thenReturn(Mono.just(account));
         when(accountRepository.save(account)).thenReturn(Mono.just(account));
         //When
-        final Mono<Void> handle = balanceCommandHandler.subtractBalance(accountId, subtractBalanceCommand);
+        final Mono<Void> handle = balanceCommandHandler.handle(accountId, subtractBalanceCommand);
         //Then
         StepVerifier.create(handle).expectComplete().verify();
         verify(accountRepository).findById(accountId);

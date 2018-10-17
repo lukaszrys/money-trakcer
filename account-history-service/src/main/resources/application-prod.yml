@@ -1,0 +1,6 @@
+server:
+  port: 8090
+spring:
+  data:
+    mongodb:
+      uri: mongodb://account-history:account-history@mongo-account-history:27017/admin
