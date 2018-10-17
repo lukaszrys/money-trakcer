@@ -1,7 +1,7 @@
-package com.vegesoft.moneytracker.account.history.rest
+package com.vegesoft.moneytracker.accounthistory.rest
 
-import com.vegesoft.moneytracker.account.history.command.AddExpenseCommand
-import com.vegesoft.moneytracker.account.history.domain.repository.ExpenseRepository
+import com.vegesoft.moneytracker.accounthistory.command.AddExpenseCommand
+import com.vegesoft.moneytracker.accounthistory.domain.repository.ExpenseRepository
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired

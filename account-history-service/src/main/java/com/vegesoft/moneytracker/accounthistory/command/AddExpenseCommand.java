@@ -1,4 +1,4 @@
-package com.vegesoft.moneytracker.account.history.command;
+package com.vegesoft.moneytracker.accounthistory.command;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

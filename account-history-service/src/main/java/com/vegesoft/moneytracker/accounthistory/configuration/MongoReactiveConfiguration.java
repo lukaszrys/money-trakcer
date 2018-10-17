@@ -1,4 +1,4 @@
-package com.vegesoft.moneytracker.account.history.configuration;
+package com.vegesoft.moneytracker.accounthistory.configuration;
 
 import com.mongodb.MongoClientURI;
 import com.mongodb.reactivestreams.client.MongoClient;

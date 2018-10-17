@@ -1,8 +1,8 @@
-package com.vegesoft.moneytracker.account.history.handler.mapper;
+package com.vegesoft.moneytracker.accounthistory.handler.mapper;
 
-import com.vegesoft.moneytracker.account.history.command.AddExpenseCommand;
-import com.vegesoft.moneytracker.account.history.domain.Amount;
-import com.vegesoft.moneytracker.account.history.domain.Expense;
+import com.vegesoft.moneytracker.accounthistory.command.AddExpenseCommand;
+import com.vegesoft.moneytracker.accounthistory.domain.Amount;
+import com.vegesoft.moneytracker.accounthistory.domain.Expense;
 import java.util.UUID;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.vegesoft.moneytracker.account.history.rest.data;
+package com.vegesoft.moneytracker.accounthistory.rest.data;
 
 public class ResponseWrapper<T> {
 

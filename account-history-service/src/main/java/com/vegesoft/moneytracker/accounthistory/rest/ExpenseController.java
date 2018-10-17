@@ -1,12 +1,11 @@
-package com.vegesoft.moneytracker.account.history.rest;
+package com.vegesoft.moneytracker.accounthistory.rest;
 
-import com.vegesoft.moneytracker.account.history.command.AddExpenseCommand;
-import com.vegesoft.moneytracker.account.history.handler.ExpenseCommandHandler;
-import com.vegesoft.moneytracker.account.history.rest.data.ResponseWrapper;
+import com.vegesoft.moneytracker.accounthistory.command.AddExpenseCommand;
+import com.vegesoft.moneytracker.accounthistory.handler.ExpenseCommandHandler;
+import com.vegesoft.moneytracker.accounthistory.rest.data.ResponseWrapper;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

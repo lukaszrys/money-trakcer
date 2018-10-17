@@ -1,6 +1,6 @@
-package com.vegesoft.moneytracker.account.history.handler;
+package com.vegesoft.moneytracker.accounthistory.handler;
 
-import com.vegesoft.moneytracker.account.history.command.AddExpenseCommand;
+import com.vegesoft.moneytracker.accounthistory.command.AddExpenseCommand;
 import java.util.UUID;
 import reactor.core.publisher.Mono;
 

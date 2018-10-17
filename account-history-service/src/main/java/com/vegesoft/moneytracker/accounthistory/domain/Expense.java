@@ -1,4 +1,4 @@
-package com.vegesoft.moneytracker.account.history.domain;
+package com.vegesoft.moneytracker.accounthistory.domain;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

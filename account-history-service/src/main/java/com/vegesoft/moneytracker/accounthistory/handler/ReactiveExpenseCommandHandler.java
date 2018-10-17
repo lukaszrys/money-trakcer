@@ -1,8 +1,8 @@
-package com.vegesoft.moneytracker.account.history.handler;
+package com.vegesoft.moneytracker.accounthistory.handler;
 
-import com.vegesoft.moneytracker.account.history.command.AddExpenseCommand;
-import com.vegesoft.moneytracker.account.history.domain.repository.ExpenseRepository;
-import com.vegesoft.moneytracker.account.history.handler.mapper.ExpenseCommandMapper;
+import com.vegesoft.moneytracker.accounthistory.command.AddExpenseCommand;
+import com.vegesoft.moneytracker.accounthistory.domain.repository.ExpenseRepository;
+import com.vegesoft.moneytracker.accounthistory.handler.mapper.ExpenseCommandMapper;
 import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

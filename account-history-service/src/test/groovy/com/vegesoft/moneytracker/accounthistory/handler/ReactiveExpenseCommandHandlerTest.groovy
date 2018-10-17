@@ -1,10 +1,11 @@
-package com.vegesoft.moneytracker.account.history.handler
+package com.vegesoft.moneytracker.accounthistory.handler
 
-import com.vegesoft.moneytracker.account.history.command.AddExpenseCommand
-import com.vegesoft.moneytracker.account.history.domain.Amount
-import com.vegesoft.moneytracker.account.history.domain.Expense
-import com.vegesoft.moneytracker.account.history.domain.repository.ExpenseRepository
-import com.vegesoft.moneytracker.account.history.handler.mapper.ExpenseCommandMapper
+
+import com.vegesoft.moneytracker.accounthistory.handler.mapper.ExpenseCommandMapper
+import com.vegesoft.moneytracker.accounthistory.command.AddExpenseCommand
+import com.vegesoft.moneytracker.accounthistory.domain.Amount
+import com.vegesoft.moneytracker.accounthistory.domain.Expense
+import com.vegesoft.moneytracker.accounthistory.domain.repository.ExpenseRepository
 import org.junit.Test
 import reactor.core.publisher.Mono
 import reactor.test.StepVerifier
