@@ -10,6 +10,7 @@ import org.springframework.http.MediaType
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.reactive.server.WebTestClient
 import reactor.core.publisher.Mono
+import reactor.test.StepVerifier
 import spock.lang.Specification
 
 import java.time.LocalDateTime
@@ -42,5 +43,7 @@ class ExpenseControllerIT extends Specification {
                     .expectStatus()
                     .is2xxSuccessful()
                     .expectBody()
+            StepVerifier.create(expenseRepository.findAll()).assertNext { expense -> expense != null }
+                    .expectComplete().verify()
     }
 }

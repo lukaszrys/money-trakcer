@@ -1,3 +1,7 @@
+rest-client:
+  connect-timeout-ms: 1000
+  account-history:
+    uri: http://localhost:8090
 spring:
   data:
     mongodb:

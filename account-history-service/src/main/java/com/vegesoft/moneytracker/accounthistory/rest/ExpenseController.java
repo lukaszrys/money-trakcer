@@ -24,10 +24,7 @@ public class ExpenseController {
 
     @PostMapping("/api/expenses")
     Mono<ResponseWrapper<UUID>> addExpense(@RequestBody final AddExpenseCommand command) {
-        return Mono.just(UUID.randomUUID()).map((uuid -> {
-            expenseCommandHandler.handle(uuid, command);
-            return new ResponseWrapper<>(uuid);
-        }));
-
+        final UUID uuid = UUID.randomUUID();
+        return expenseCommandHandler.handle(uuid, command).then(Mono.just(new ResponseWrapper<>(uuid)));
     }
 }

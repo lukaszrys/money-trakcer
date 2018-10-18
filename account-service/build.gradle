@@ -27,6 +27,7 @@ repositories {
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-webflux')
     implementation('org.springframework.boot:spring-boot-starter-actuator')
+    implementation('org.springframework.boot:spring-boot-configuration-processor')
     implementation('org.springframework.boot:spring-boot-starter-data-mongodb-reactive')
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')
@@ -35,6 +36,7 @@ dependencies {
     testImplementation('de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.1.1')
 
     testCompile('org.mockito:mockito-core:2.23.0')
+    testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '3.11.0'
 }
 
 configurations.all {

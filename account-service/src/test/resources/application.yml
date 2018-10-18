@@ -1,4 +1,8 @@
+rest-client:
+  connect-timeout-ms: 1000
+  account-history:
+    uri: http://localhost:8090
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/account
+      uri: mongodb://account:account@localhost:27017/admin
