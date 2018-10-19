@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 @Component
 class RestAccountHistoryClient implements AccountHistoryClient {
 
-    private final String EXPENSE_ENDPOINT = "expenses";
+    private final String EXPENSE_ENDPOINT = "/expenses";
 
     private final WebClient webClient;
     private final WebClientProperties webClientProperties;

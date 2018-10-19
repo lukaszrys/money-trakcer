@@ -1,4 +1,4 @@
-POST {{host}}/api/accounts/8a7bf385-c549-41e5-8035-9d7e4991a41b/balance/subtract HTTP/1.1
+POST {{host}}/api/accounts/{uuid}}/balance/subtract HTTP/1.1
 Content-Type: application/json
 
 {

@@ -34,7 +34,7 @@ class ReactiveBalanceCommandHandler implements BalanceCommandHandler {
         return Mono.just(accountId).flatMap(accountRepository::findById).map(account -> {
             account.addBalance(new Balance(addBalanceCommand.getAmount()));
             return account;
-        }).map(accountRepository::save).then();
+        }).flatMap(accountRepository::save).then();
     }
 
     @Override
@@ -45,8 +45,8 @@ class ReactiveBalanceCommandHandler implements BalanceCommandHandler {
                 account.subtractBalance(new Balance(subtractBalanceCommand.getAmount()));
                 return account;
             })
-            .map(accountRepository::save)
-            .map((accountMono -> accountHistoryClient.expense(
+            .flatMap(accountRepository::save)
+            .flatMap((accountMono -> accountHistoryClient.expense(
                 balanceCommandMapper.expenseRequest(accountId, subtractBalanceCommand))))
             .then();
     }
