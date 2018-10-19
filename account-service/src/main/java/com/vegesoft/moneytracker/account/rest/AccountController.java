@@ -22,10 +22,7 @@ public class AccountController {
 
     @PostMapping("/api/accounts")
     Mono<ResponseWrapper<UUID>> addAccount(@RequestBody final CreateAccountCommand createAccount) {
-        return Mono.just(UUID.randomUUID()).map((uuid -> {
-            accountCommandHandler.add(uuid, createAccount);
-            return new ResponseWrapper<>(uuid);
-        }));
-
+        final UUID uuid = UUID.randomUUID();
+        return accountCommandHandler.add(uuid, createAccount).then(Mono.just(new ResponseWrapper<>(uuid)));
     }
 }

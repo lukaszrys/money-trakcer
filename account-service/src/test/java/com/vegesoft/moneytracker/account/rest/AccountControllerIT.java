@@ -3,9 +3,7 @@ package com.vegesoft.moneytracker.account.rest;
 import com.vegesoft.moneytracker.account.command.CreateAccountCommand;
 import com.vegesoft.moneytracker.account.domain.repository.AccountRepository;
 import java.math.BigDecimal;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +13,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.test.web.reactive.server.WebTestClient.ResponseSpec;
 import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -28,6 +27,7 @@ class AccountControllerIT {
     private AccountRepository accountRepository;
 
     @AfterEach
+    @BeforeEach
     void cleanUp() {
         accountRepository.deleteAll().block();
     }
@@ -45,10 +45,12 @@ class AccountControllerIT {
             .body(Mono.just(command), CreateAccountCommand.class)
             .exchange();
         //Then
-        exchange
-            .expectStatus()
-            .is2xxSuccessful()
-            .expectBody()
-            .jsonPath("$.data").isNotEmpty();
+        exchange.expectStatus().is2xxSuccessful().expectBody().jsonPath("$.data").isNotEmpty();
+
+        StepVerifier.create(accountRepository.findAll())
+            .assertNext((Assertions::assertNotNull))
+            .expectComplete()
+            .verify();
+
     }
 }

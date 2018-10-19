@@ -4,6 +4,8 @@ services:
   mongo-account:
     image: mongo
     restart: always
+    ports:
+    - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: account
       MONGO_INITDB_ROOT_PASSWORD: account
@@ -12,11 +14,13 @@ services:
   mongo-account-history:
     image: mongo
     restart: always
+    ports:
+    - "27018:27017"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: account
-      MONGO_INITDB_ROOT_PASSWORD: account
+      MONGO_INITDB_ROOT_USERNAME: account-history
+      MONGO_INITDB_ROOT_PASSWORD: account-history
     networks:
-    - account
+    - account-history
   account-service:
     build: ./account-service
     restart: always

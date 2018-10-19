@@ -1,3 +1,7 @@
+rest-client:
+  connect-timeout-ms: 1000
+  account-history:
+    uri: http://account-history-service:8090/api
 spring:
   data:
     mongodb:

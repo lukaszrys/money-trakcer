@@ -1,17 +1,13 @@
-package com.vegesoft.moneytracker.accounthistory.command;
+package com.vegesoft.moneytracker.account.client.data;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-public final class AddExpenseCommand {
+public final class ExpenseRequest {
 
     @NotNull
-    @Min(0)
     private final BigDecimal amount;
     @NotNull
     private final String type;
@@ -20,10 +16,8 @@ public final class AddExpenseCommand {
     @NotNull
     private final LocalDateTime createdAt;
 
-    @JsonCreator
-    public AddExpenseCommand(@JsonProperty("amount") @NotNull @Min(0) final BigDecimal amount,
-        @JsonProperty("type") @NotNull final String type, @JsonProperty("accountId") @NotNull final UUID accountId,
-        @JsonProperty("createdAt") @NotNull final LocalDateTime createdAt) {
+    public ExpenseRequest(@NotNull final BigDecimal amount, @NotNull final String type, @NotNull final UUID accountId,
+        @NotNull final LocalDateTime createdAt) {
         this.amount = amount;
         this.type = type;
         this.accountId = accountId;

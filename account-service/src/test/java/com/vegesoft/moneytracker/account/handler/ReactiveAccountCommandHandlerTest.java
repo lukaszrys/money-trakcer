@@ -9,6 +9,7 @@ import com.vegesoft.moneytracker.account.command.CreateAccountCommand;
 import com.vegesoft.moneytracker.account.domain.Account;
 import com.vegesoft.moneytracker.account.domain.Balance;
 import com.vegesoft.moneytracker.account.domain.repository.AccountRepository;
+import com.vegesoft.moneytracker.account.handler.mapper.AccountCommandMapper;
 import java.math.BigDecimal;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,12 +21,14 @@ import reactor.test.StepVerifier;
 class ReactiveAccountCommandHandlerTest {
 
     private AccountCommandHandler accountCommandHandler;
+    private AccountCommandMapper accountCommandMapper;
     private AccountRepository accountRepository;
 
     @BeforeEach
     void setUp() {
         accountRepository = mock(AccountRepository.class);
-        accountCommandHandler = new ReactiveAccountCommandHandler(accountRepository);
+        accountCommandMapper = mock(AccountCommandMapper.class);
+        accountCommandHandler = new ReactiveAccountCommandHandler(accountRepository, accountCommandMapper);
     }
 
     @Test
@@ -38,6 +41,7 @@ class ReactiveAccountCommandHandlerTest {
         final Account account = new Account(id, new Balance(initialValue));
 
         when(accountRepository.save(any(Account.class))).thenReturn(Mono.just(account));
+        when(accountCommandMapper.mapToAccount(id, createAccountCommand)).thenReturn(account);
         //When
         final Mono<Void> add = accountCommandHandler.add(id, createAccountCommand);
         //Then
