@@ -7,8 +7,6 @@ import com.vegesoft.moneytracker.account.domain.Balance;
 import com.vegesoft.moneytracker.account.domain.repository.AccountRepository;
 import com.vegesoft.moneytracker.account.handler.mapper.BalanceCommandMapper;
 import java.util.UUID;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
@@ -16,7 +14,6 @@ import reactor.core.publisher.Mono;
 @Component
 class ReactiveBalanceCommandHandler implements BalanceCommandHandler {
 
-    private final static Logger logger = LoggerFactory.getLogger(ReactiveBalanceCommandHandler.class);
     private final AccountRepository accountRepository;
     private final AccountHistoryClient accountHistoryClient;
     private final BalanceCommandMapper balanceCommandMapper;
