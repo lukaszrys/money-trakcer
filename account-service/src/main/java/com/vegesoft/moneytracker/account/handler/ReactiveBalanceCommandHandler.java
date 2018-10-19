@@ -28,10 +28,16 @@ class ReactiveBalanceCommandHandler implements BalanceCommandHandler {
 
     @Override
     public Mono<Void> handle(final UUID accountId, final AddBalanceCommand addBalanceCommand) {
-        return Mono.just(accountId).flatMap(accountRepository::findById).map(account -> {
-            account.addBalance(new Balance(addBalanceCommand.getAmount()));
-            return account;
-        }).flatMap(accountRepository::save).then();
+        return Mono.just(accountId)
+            .flatMap(accountRepository::findById)
+            .map(account -> {
+                account.addBalance(new Balance(addBalanceCommand.getAmount()));
+                return account;
+            })
+            .flatMap(accountRepository::save)
+            .flatMap(account -> accountHistoryClient.income(
+                balanceCommandMapper.incomeRequest(accountId, addBalanceCommand)))
+            .then();
     }
 
     @Override
@@ -43,7 +49,7 @@ class ReactiveBalanceCommandHandler implements BalanceCommandHandler {
                 return account;
             })
             .flatMap(accountRepository::save)
-            .flatMap((accountMono -> accountHistoryClient.expense(
+            .flatMap((account -> accountHistoryClient.expense(
                 balanceCommandMapper.expenseRequest(accountId, subtractBalanceCommand))))
             .then();
     }

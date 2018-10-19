@@ -1,7 +1,8 @@
 package com.vegesoft.moneytracker.accounthistory.rest
 
-import com.vegesoft.moneytracker.accounthistory.command.AddExpenseCommand
-import com.vegesoft.moneytracker.accounthistory.domain.repository.ExpenseRepository
+
+import com.vegesoft.moneytracker.accounthistory.command.AddIncomeCommand
+import com.vegesoft.moneytracker.accounthistory.domain.repository.IncomeRepository
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,32 +18,32 @@ import java.time.LocalDateTime
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ExpenseControllerIT extends Specification {
+class IncomeControllerIT extends Specification {
 
-    private static final String API = "/api/expenses"
+    private static final String API = "/api/incomes"
 
     @Autowired
     private WebTestClient webTestClient
     @Autowired
-    private ExpenseRepository expenseRepository
+    private IncomeRepository incomeRepository
     
     @Test
-    def "shouldSave_expense"() {
+    def "shouldSave_income"() {
         given: "create command"
-            def command = new AddExpenseCommand(BigDecimal.TEN, "type", UUID.randomUUID(), LocalDateTime.now())
+            def command = new AddIncomeCommand(BigDecimal.TEN, UUID.randomUUID(), LocalDateTime.now())
         when: "sending request"
             def exchange = webTestClient.post()
                     .uri(API)
                     .contentType(MediaType.APPLICATION_JSON_UTF8)
                     .accept(MediaType.APPLICATION_JSON_UTF8)
-                    .body(Mono.just(command), AddExpenseCommand.class)
+                    .body(Mono.just(command), AddIncomeCommand.class)
                     .exchange()
         then: "request processed correctly"
             exchange
                     .expectStatus()
                     .is2xxSuccessful()
                     .expectBody()
-            StepVerifier.create(expenseRepository.findAll()).assertNext { expense -> expense != null }
+            StepVerifier.create(incomeRepository.findAll()).assertNext { income -> income != null }
                     .expectComplete().verify()
     }
 }
