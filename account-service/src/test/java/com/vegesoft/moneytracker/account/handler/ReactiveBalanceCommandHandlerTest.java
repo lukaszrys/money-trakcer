@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 
 import com.vegesoft.moneytracker.account.client.AccountHistoryClient;
 import com.vegesoft.moneytracker.account.client.data.ExpenseRequest;
+import com.vegesoft.moneytracker.account.client.data.IncomeRequest;
 import com.vegesoft.moneytracker.account.command.AddBalanceCommand;
 import com.vegesoft.moneytracker.account.command.SubtractBalanceCommand;
 import com.vegesoft.moneytracker.account.domain.Account;
@@ -45,15 +46,19 @@ class ReactiveBalanceCommandHandlerTest {
         final UUID accountId = UUID.randomUUID();
         final Balance balance = new Balance(BigDecimal.ZERO);
         final Account account = new Account(accountId, balance);
+        final IncomeRequest incomeRequest = new IncomeRequest(BigDecimal.TEN, UUID.randomUUID(), LocalDateTime.now());
 
         when(accountRepository.findById(accountId)).thenReturn(Mono.just(account));
         when(accountRepository.save(account)).thenReturn(Mono.just(account));
+        when(commandMapper.incomeRequest(accountId, addBalanceCommand)).thenReturn(incomeRequest);
+        when(accountHistoryClient.income(incomeRequest)).thenReturn(Mono.just(UUID.randomUUID()));
         //When
         final Mono<Void> handle = balanceCommandHandler.handle(accountId, addBalanceCommand);
         //Then
         StepVerifier.create(handle).expectComplete().verify();
         verify(accountRepository).findById(accountId);
         verify(accountRepository).save(account);
+        verify(accountHistoryClient).income(incomeRequest);
         assertNotEquals(account.getBalance(), balance);
     }
 

@@ -1,6 +1,7 @@
 package com.vegesoft.moneytracker.account.client;
 
 import com.vegesoft.moneytracker.account.client.data.ExpenseRequest;
+import com.vegesoft.moneytracker.account.client.data.IncomeRequest;
 import com.vegesoft.moneytracker.account.configuration.properties.WebClientProperties;
 import com.vegesoft.moneytracker.account.rest.data.ResponseWrapper;
 import java.util.UUID;
@@ -14,6 +15,7 @@ import reactor.core.publisher.Mono;
 class RestAccountHistoryClient implements AccountHistoryClient {
 
     private final String EXPENSE_ENDPOINT = "/expenses";
+    private final String INCOME_ENDPOINT = "/incomes";
 
     private final WebClient webClient;
     private final WebClientProperties webClientProperties;
@@ -30,12 +32,25 @@ class RestAccountHistoryClient implements AccountHistoryClient {
 
         };
 
-        final Mono<UUID> map = webClient.post()
+        return webClient.post()
             .uri(webClientProperties.getAccountHistoryUri() + EXPENSE_ENDPOINT)
             .body(Mono.just(expenseRequest), ExpenseRequest.class)
             .retrieve()
             .bodyToMono(responseType)
             .map(ResponseWrapper::getData);
-        return map;
+    }
+
+    @Override
+    public Mono<UUID> income(final IncomeRequest incomeRequest) {
+        final ParameterizedTypeReference<ResponseWrapper<UUID>> responseType = new ParameterizedTypeReference<>() {
+
+        };
+
+        return webClient.post()
+            .uri(webClientProperties.getAccountHistoryUri() + INCOME_ENDPOINT)
+            .body(Mono.just(incomeRequest), IncomeRequest.class)
+            .retrieve()
+            .bodyToMono(responseType)
+            .map(ResponseWrapper::getData);
     }
 }

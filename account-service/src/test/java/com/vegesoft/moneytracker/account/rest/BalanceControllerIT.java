@@ -63,8 +63,10 @@ class BalanceControllerIT {
 
     @Test
     @DisplayName("Should add money to account")
-    void shouldAddToAccount() {
+    void shouldAddToAccount() throws JSONException {
         //Given
+        prepareResponseFromAccountHistory();
+
         final UUID id = UUID.randomUUID();
         final AddBalanceCommand command = new AddBalanceCommand(new BigDecimal("12.33"));
         final BigDecimal initialBalance = BigDecimal.ZERO;
