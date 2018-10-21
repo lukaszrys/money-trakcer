@@ -1,8 +1,11 @@
 package com.vegesoft.moneytracker.account.rest;
 
 import com.vegesoft.moneytracker.account.command.CreateAccountCommand;
+import com.vegesoft.moneytracker.account.domain.Account;
+import com.vegesoft.moneytracker.account.domain.Balance;
 import com.vegesoft.moneytracker.account.domain.repository.AccountRepository;
 import java.math.BigDecimal;
+import java.util.UUID;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +55,44 @@ class AccountControllerIT {
             .expectComplete()
             .verify();
 
+    }
+
+    @Test
+    @DisplayName("Should get account view based on id")
+    void shouldGet_byAccountId() {
+        //Given
+        final UUID accountId = UUID.randomUUID();
+        final BigDecimal amount = BigDecimal.TEN;
+
+        accountRepository.save(new Account(accountId, new Balance(amount))).block();
+        //When
+        final ResponseSpec exchange = webTestClient.get()
+            .uri(API_ACCOUNTS + "/" + accountId)
+            .accept(MediaType.APPLICATION_JSON_UTF8)
+            .exchange();
+        //Then
+
+        exchange.expectStatus()
+            .is2xxSuccessful()
+            .expectBody()
+            .jsonPath("$.accountId", accountId)
+            .hasJsonPath()
+            .jsonPath("$.amount", amount);
+    }
+
+    @Test
+    @DisplayName("Should not get account view based on id")
+    void shouldNotGet_byAccountId() {
+        //Given
+        final UUID accountId = UUID.randomUUID();
+
+        //When
+        final ResponseSpec exchange = webTestClient.get()
+            .uri(API_ACCOUNTS + "/" + accountId)
+            .accept(MediaType.APPLICATION_JSON_UTF8)
+            .exchange();
+        //Then
+
+        exchange.expectStatus().is4xxClientError();
     }
 }
