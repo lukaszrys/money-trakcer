@@ -45,7 +45,7 @@ class ExpenseControllerIT extends Specification {
 
             StepVerifier.create(expenseRepository.findAll()).assertNext { expense -> expense != null }
                     .expectComplete().verify()
-        cleanup:
+        cleanup: "clean database"
             expenseRepository.deleteAll().block()
     }
 }

@@ -44,7 +44,7 @@ class IncomeControllerIT extends Specification {
                     .expectBody()
             StepVerifier.create(incomeRepository.findAll()).assertNext { income -> income != null }
                     .expectComplete().verify()
-        cleanup:
+        cleanup: "clean database"
             incomeRepository.deleteAll().block()
     }
 }

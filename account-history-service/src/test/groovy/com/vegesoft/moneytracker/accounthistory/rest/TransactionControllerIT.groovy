@@ -47,7 +47,7 @@ class TransactionControllerIT extends Specification {
                     .expectStatus()
                     .is2xxSuccessful()
                     .expectBody()
-        cleanup:
+        cleanup: "clean database"
             incomeRepository.deleteAll().block()
             expenseRepository.deleteAll().block()
     }
