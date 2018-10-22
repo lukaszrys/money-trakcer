@@ -42,7 +42,10 @@ class ExpenseControllerIT extends Specification {
                     .expectStatus()
                     .is2xxSuccessful()
                     .expectBody()
+
             StepVerifier.create(expenseRepository.findAll()).assertNext { expense -> expense != null }
                     .expectComplete().verify()
+        cleanup:
+            expenseRepository.deleteAll().block()
     }
 }
