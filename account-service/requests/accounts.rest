@@ -6,3 +6,8 @@ Content-Type: application/json
 }
 
 ###
+
+GET {{host}}/api/accounts/{accountId} HTTP/1.1
+Content-Type: application/json
+
+###
