@@ -41,12 +41,14 @@ class TransactionControllerIT extends Specification {
         when: "sending request"
             WebTestClient.ResponseSpec exchange = webTestClient.get()
                     .uri(API + "/" + accountId)
-                    .accept(MediaType.APPLICATION_JSON_UTF8)
                     .exchange()
         then: "request processed correctly"
             exchange
                     .expectStatus()
                     .is2xxSuccessful()
                     .expectBody()
+        cleanup: "clean database"
+            incomeRepository.deleteAll().block()
+            expenseRepository.deleteAll().block()
     }
 }
