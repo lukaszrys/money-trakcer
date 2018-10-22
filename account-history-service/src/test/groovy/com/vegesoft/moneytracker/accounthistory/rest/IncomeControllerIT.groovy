@@ -1,6 +1,5 @@
 package com.vegesoft.moneytracker.accounthistory.rest
 
-
 import com.vegesoft.moneytracker.accounthistory.command.AddIncomeCommand
 import com.vegesoft.moneytracker.accounthistory.domain.repository.IncomeRepository
 import org.junit.Test
@@ -26,7 +25,7 @@ class IncomeControllerIT extends Specification {
     private WebTestClient webTestClient
     @Autowired
     private IncomeRepository incomeRepository
-    
+
     @Test
     def "shouldSave_income"() {
         given: "create command"
@@ -45,5 +44,7 @@ class IncomeControllerIT extends Specification {
                     .expectBody()
             StepVerifier.create(incomeRepository.findAll()).assertNext { income -> income != null }
                     .expectComplete().verify()
+        cleanup: "clean database"
+            incomeRepository.deleteAll().block()
     }
 }
