@@ -29,7 +29,7 @@
 ### Endpoints
 * POST **/api/expenses** - create an expense
 * POST **/api/incomes** create an income
-* GET **/api/transactions/{accountsId}** - return all transactions (incomes + expenses) attached to provided accountId
+* GET **/api/transactions/{accountId}** - return all transactions (incomes + expenses) attached to provided accountId
 
 
 ## Statistics Service
