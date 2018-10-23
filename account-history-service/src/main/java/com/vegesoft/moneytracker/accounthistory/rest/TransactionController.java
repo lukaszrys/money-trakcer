@@ -2,6 +2,7 @@ package com.vegesoft.moneytracker.accounthistory.rest;
 
 import com.vegesoft.moneytracker.accounthistory.query.TransactionQuery;
 import com.vegesoft.moneytracker.accounthistory.query.view.TransactionView;
+import com.vegesoft.moneytracker.accounthistory.rest.data.GetTransactionForAccountParams;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -22,7 +23,8 @@ public class TransactionController {
     }
 
     @GetMapping("/api/transactions/{accountId}")
-    Flux<TransactionView> getTransactionForAccount(@PathVariable final UUID accountId) {
-        return transactionQuery.findTransactionsByAccountId(accountId);
+    Flux<TransactionView> getTransactionForAccount(@PathVariable final UUID accountId,
+        GetTransactionForAccountParams params) {
+        return transactionQuery.findTransactionsByAccountId(accountId, params.getFrom(), params.getTo());
     }
 }
