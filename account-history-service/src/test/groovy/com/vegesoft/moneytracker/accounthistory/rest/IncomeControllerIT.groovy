@@ -1,7 +1,9 @@
 package com.vegesoft.moneytracker.accounthistory.rest
 
 import com.vegesoft.moneytracker.accounthistory.command.AddIncomeCommand
+import com.vegesoft.moneytracker.accounthistory.domain.Income
 import com.vegesoft.moneytracker.accounthistory.domain.repository.IncomeRepository
+import com.vegesoft.moneytracker.accounthistory.query.view.TransactionView
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,7 +17,6 @@ import spock.lang.Specification
 
 import java.time.LocalDateTime
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class IncomeControllerIT extends Specification {
 
@@ -41,7 +42,6 @@ class IncomeControllerIT extends Specification {
             exchange
                     .expectStatus()
                     .is2xxSuccessful()
-                    .expectBody()
             StepVerifier.create(incomeRepository.findAll()).assertNext { income -> income != null }
                     .expectComplete().verify()
         cleanup: "clean database"

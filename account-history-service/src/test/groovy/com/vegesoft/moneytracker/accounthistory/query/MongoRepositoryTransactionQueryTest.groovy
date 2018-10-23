@@ -24,11 +24,12 @@ class MongoRepositoryTransactionQueryTest extends Specification {
             def accountId = UUID.randomUUID()
             def income = createIncome(accountId)
             def expense = createExpense(accountId)
+            def now = LocalDateTime.now()
         when:
-            def result = StepVerifier.create(transactionQuery.findTransactionsByAccountId(accountId))
+            def result = StepVerifier.create(transactionQuery.findTransactionsByAccountId(accountId, now, now))
         then:
-            expenseRepository.findExpensesByAccountId(accountId) >> Flux.just(expense)
-            incomeRepository.findIncomesByAccountId(accountId) >> Flux.just(income)
+            expenseRepository.findExpensesByAccountIdAndCreatedAtBetween(accountId, now, now) >> Flux.just(expense)
+            incomeRepository.findIncomesByAccountIdAndCreatedAtBetween(accountId, now, now) >> Flux.just(income)
             result.assertNext { expenseView -> expense.type == expenseView.type }.assertNext { incomeView
                 ->
                 MongoRepositoryTransactionQuery.INCOME_TYPE == incomeView.type
@@ -41,11 +42,12 @@ class MongoRepositoryTransactionQueryTest extends Specification {
         given:
             def accountId = UUID.randomUUID()
             def expense = createExpense(accountId)
+            def now = LocalDateTime.now()
         when:
-            def result = StepVerifier.create(transactionQuery.findTransactionsByAccountId(accountId))
+            def result = StepVerifier.create(transactionQuery.findTransactionsByAccountId(accountId, now, now))
         then:
-            expenseRepository.findExpensesByAccountId(accountId) >> Flux.just(expense)
-            incomeRepository.findIncomesByAccountId(accountId) >> Flux.empty()
+            expenseRepository.findExpensesByAccountIdAndCreatedAtBetween(accountId, now, now) >> Flux.just(expense)
+            incomeRepository.findIncomesByAccountIdAndCreatedAtBetween(accountId, now, now) >> Flux.empty()
             result.assertNext { transactionView
                 ->
                 expense.createdAt == transactionView.createdAt
@@ -59,11 +61,12 @@ class MongoRepositoryTransactionQueryTest extends Specification {
         given:
             def accountId = UUID.randomUUID()
             def income = createIncome(accountId)
+            def now = LocalDateTime.now()
         when:
-            def result = StepVerifier.create(transactionQuery.findTransactionsByAccountId(accountId))
+            def result = StepVerifier.create(transactionQuery.findTransactionsByAccountId(accountId, now, now))
         then:
-            expenseRepository.findExpensesByAccountId(accountId) >> Flux.empty()
-            incomeRepository.findIncomesByAccountId(accountId) >> Flux.just(income)
+            expenseRepository.findExpensesByAccountIdAndCreatedAtBetween(accountId, now, now) >> Flux.empty()
+            incomeRepository.findIncomesByAccountIdAndCreatedAtBetween(accountId, now, now) >> Flux.just(income)
             result.assertNext { transactionView ->
                 income.createdAt == transactionView.createdAt
                 income.amount.value == transactionView.amount
@@ -75,11 +78,12 @@ class MongoRepositoryTransactionQueryTest extends Specification {
     def "shouldNotFindTransactions_byId"() {
         given:
             def accountId = UUID.randomUUID()
+            def now = LocalDateTime.now()
         when:
-            def result = StepVerifier.create(transactionQuery.findTransactionsByAccountId(accountId))
+            def result = StepVerifier.create(transactionQuery.findTransactionsByAccountId(accountId, now, now))
         then:
-            expenseRepository.findExpensesByAccountId(accountId) >> Flux.empty()
-            incomeRepository.findIncomesByAccountId(accountId) >> Flux.empty()
+            expenseRepository.findExpensesByAccountIdAndCreatedAtBetween(accountId, now, now) >> Flux.empty()
+            incomeRepository.findIncomesByAccountIdAndCreatedAtBetween(accountId, now, now) >> Flux.empty()
             result.expectComplete().verify()
     }
 
