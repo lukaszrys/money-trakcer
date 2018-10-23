@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/lukaszrys/money-tracker.svg?branch=develop)](https://travis-ci.org/lukaszrys/money-tracker)
-
+[![codecov](https://codecov.io/gh/lukaszrys/money-tracker/branch/develop/graph/badge.svg)](https://codecov.io/gh/lukaszrys/money-tracker)
 # money-tracker 
 
 ## General stack
@@ -29,7 +29,7 @@
 ### Endpoints
 * POST **/api/expenses** - create an expense
 * POST **/api/incomes** create an income
-* GET **/api/transactions/{accountsId}** - return all transactions (incomes + expenses) attached to provided accountId
+* GET **/api/transactions/{accountId}** - return all transactions (incomes + expenses) attached to provided accountId
 
 
 ## Statistics Service
