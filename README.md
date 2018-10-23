@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/lukaszrys/money-tracker.svg?branch=develop)](https://travis-ci.org/lukaszrys/money-tracker)
-
+[![codecov](https://codecov.io/gh/lukaszrys/money-tracker/branch/develop/graph/badge.svg)](https://codecov.io/gh/lukaszrys/money-tracker)
 # money-tracker 
 
 ## General stack
