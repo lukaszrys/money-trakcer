@@ -41,8 +41,17 @@ services:
     networks:
       - moneytracker
       - account-history
+  statistics-service:
+    build: ./statistics-service
+    restart: always
+    ports:
+    - "8070:8070"
+    networks:
+    - statistics
+    - moneytracker
 
 networks:
   account:
   account-history:
+  statistics:
   moneytracker:

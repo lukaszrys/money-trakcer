@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/lukaszrys/money-tracker.svg?branch=develop)](https://travis-ci.org/lukaszrys/savemaker)
+[![Build Status](https://travis-ci.org/lukaszrys/money-tracker.svg?branch=develop)](https://travis-ci.org/lukaszrys/money-tracker)
 
 # money-tracker 
 
@@ -30,3 +30,9 @@
 * POST **/api/expenses** - create an expense
 * POST **/api/incomes** create an income
 * GET **/api/transactions/{accountsId}** - return all transactions (incomes + expenses) attached to provided accountId
+
+
+## Statistics Service
+
+### Additional stack
+* Kotlin 1.3-RC
