@@ -35,4 +35,4 @@
 ## Statistics Service
 
 ### Additional stack
-* Kotlin 1.2
+* Kotlin 1.3-RC
