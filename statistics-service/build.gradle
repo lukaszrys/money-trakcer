@@ -18,6 +18,7 @@ apply plugin: 'kotlin-spring'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'jacoco'
 
 group 'com.vegesoft.moneytracker.statistics'
 version '0.0.1'
@@ -56,4 +57,15 @@ compileTestKotlin {
 bootJar {
     baseName = 'statistics-service'
     version = ''
+}
+
+jacoco {
+    toolVersion = "0.8.2"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
 }
