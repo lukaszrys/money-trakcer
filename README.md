@@ -36,3 +36,5 @@
 
 ### Additional stack
 * Kotlin 1.3-RC
+* MockK
+* JUnit 5

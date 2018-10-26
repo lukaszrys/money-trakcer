@@ -1,2 +1,6 @@
 server:
   port: 8070
+spring:
+  data:
+    mongodb:
+      uri: mongodb://statistics:statistics@localhost:27017/admin
