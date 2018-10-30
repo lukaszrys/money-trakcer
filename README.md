@@ -35,6 +35,6 @@
 ## Statistics Service
 
 ### Additional stack
-* Kotlin 1.3-RC
+* Kotlin 1.3
 * MockK
 * JUnit 5

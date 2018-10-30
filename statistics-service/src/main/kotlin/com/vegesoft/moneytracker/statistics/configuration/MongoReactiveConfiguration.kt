@@ -8,7 +8,8 @@ import org.springframework.data.mongodb.config.AbstractReactiveMongoConfiguratio
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories
 
 @EnableReactiveMongoRepositories
-class MongoReactiveConfiguration(@Value("\${spring.data.mongodb.uri}") val mongoDbUri: String) : AbstractReactiveMongoConfiguration() {
+class MongoReactiveConfiguration(@Value("\${spring.data.mongodb.uri}") private val mongoDbUri: String)
+    : AbstractReactiveMongoConfiguration() {
 
     override fun reactiveMongoClient(): MongoClient {
         return MongoClients.create(clientURI().uri)

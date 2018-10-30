@@ -10,6 +10,6 @@ data class AccountStatistic(@Id
                        val id: UUID,
                        val range: AccountStatisticRange,
                        val accountId: UUID,
-                       val amount: BigDecimal,
-                       val incomes: List<Transaction>,
-                       val expenses: List<Transaction>)
+                       var amount: BigDecimal,
+                       val incomes: MutableList<Transaction>,
+                       val expenses: MutableList<Transaction>)
