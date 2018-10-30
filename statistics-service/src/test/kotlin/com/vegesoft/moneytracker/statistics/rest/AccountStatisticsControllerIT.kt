@@ -77,10 +77,10 @@ internal class AccountStatisticsControllerIT {
                 .assertNext { statistic ->
                     run {
                         Assertions.assertEquals(statistic.amount, amount)
-                        Assertions.assertEquals(statistic.expenses.size, 1)
+                        Assertions.assertEquals(statistic.expenses.size, 0)
                         Assertions.assertEquals(statistic.incomes.size, 1)
-                        Assertions.assertEquals(statistic.range.from, from)
-                        Assertions.assertEquals(statistic.range.to, to)
+                        Assertions.assertEquals(statistic.range.from.withNano(0), from.withNano(0))
+                        Assertions.assertEquals(statistic.range.to.withNano(0), to.withNano(0))
                         Assertions.assertEquals(statistic.accountId, accountId)
                     }
                 }

@@ -6,6 +6,7 @@ import com.vegesoft.moneytracker.statistics.client.response.TransactionResponse
 import com.vegesoft.moneytracker.statistics.command.LoadTransactionsCommand
 import com.vegesoft.moneytracker.statistics.domain.AccountStatistic
 import com.vegesoft.moneytracker.statistics.domain.AccountStatisticRange
+import com.vegesoft.moneytracker.statistics.domain.Transaction
 import com.vegesoft.moneytracker.statistics.domain.repository.AccountStatisticRepository
 import com.vegesoft.moneytracker.statistics.handler.mapper.LoadTransactionCommandMapper
 import io.mockk.every
@@ -42,13 +43,17 @@ internal class ReactiveLoadTransactionsHandlerTest {
         val accountId = UUID.randomUUID()
         val from = LocalDateTime.now()
         val to = LocalDateTime.now()
+        val amount = BigDecimal.TEN
+        val type = "food"
         val transactionRequest = TransactionRequest(accountId, from, to)
-        val transactionResponse = TransactionResponse(BigDecimal.TEN, "food", LocalDateTime.now(), accountId)
+        val transactionResponse = TransactionResponse(amount, type)
+        val transaction = Transaction(amount, type)
         val loadTransactionsCommand = LoadTransactionsCommand(LocalDateTime.now(), LocalDateTime.now(), accountId)
         val accountStatistic = AccountStatistic(UUID.randomUUID(), AccountStatisticRange(from, to),
                 accountId, BigDecimal.TEN, mutableListOf(), mutableListOf())
 
         every { loadTransactionCommandMapper.mapToTransactionRequest(loadTransactionsCommand) } returns transactionRequest
+        every { loadTransactionCommandMapper.mapToTransaction(transactionResponse) } returns transaction
         every { accountHistoryClient.findTransactionViews(transactionRequest) } returns Flux.just(transactionResponse)
         every { accountStatisticsRepository.save(any<AccountStatistic>()) } returns Mono.just(accountStatistic)
         //When
