@@ -5,6 +5,4 @@ import java.time.LocalDateTime
 import java.util.*
 
 data class TransactionResponse(val amount: BigDecimal,
-                               val type: String,
-                               val createdAt: LocalDateTime,
-                               val accountId: UUID)
+                               val type: String)

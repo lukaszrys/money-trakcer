@@ -59,8 +59,10 @@ internal class AccountStatisticsControllerIT {
         //Given
         val amount = BigDecimal.TEN
         val accountId = UUID.randomUUID()
+        val from = LocalDateTime.now()
+        val to = LocalDateTime.now()
         prepareResponseFromAccountHistory(amount, accountId)
-        val command = LoadTransactionsCommand(LocalDateTime.now(), LocalDateTime.now(), accountId)
+        val command = LoadTransactionsCommand(from, to, accountId)
         //When
         val exchange = webTestClient.post()
                 .uri("/api/statistics")
@@ -72,7 +74,16 @@ internal class AccountStatisticsControllerIT {
         exchange.expectStatus().is2xxSuccessful
 
         StepVerifier.create<AccountStatistic>(accountStatisticsRepository.findAll())
-                .assertNext { statistic -> Assertions.assertEquals(statistic.amount, amount) }
+                .assertNext { statistic ->
+                    run {
+                        Assertions.assertEquals(statistic.amount, amount)
+                        Assertions.assertEquals(statistic.expenses.size, 1)
+                        Assertions.assertEquals(statistic.incomes.size, 1)
+                        Assertions.assertEquals(statistic.range.from, from)
+                        Assertions.assertEquals(statistic.range.to, to)
+                        Assertions.assertEquals(statistic.accountId, accountId)
+                    }
+                }
                 .expectComplete().verify()
     }
 

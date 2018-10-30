@@ -1,6 +1,7 @@
 package com.vegesoft.moneytracker.statistics.handler
 
 import com.vegesoft.moneytracker.statistics.client.AccountHistoryClient
+import com.vegesoft.moneytracker.statistics.client.response.TransactionResponse
 import com.vegesoft.moneytracker.statistics.command.LoadTransactionsCommand
 import com.vegesoft.moneytracker.statistics.domain.AccountStatistic
 import com.vegesoft.moneytracker.statistics.domain.AccountStatisticRange
@@ -9,7 +10,6 @@ import com.vegesoft.moneytracker.statistics.handler.mapper.LoadTransactionComman
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-import java.math.BigDecimal
 import java.util.*
 
 @Service
@@ -24,11 +24,11 @@ class ReactiveLoadTransactionsHandler(private val accountHistoryClient: AccountH
                 .flatMap { transactionRequest -> accountHistoryClient.findTransactionViews(transactionRequest) }
                 .onErrorMap { error -> RuntimeException("An error occured when getting transactions", error.cause) }
                 //TODO: collect info into AccountStatistic
-                .flatMap { accountStatisticRepository.save(createAccountStatistic(command)) }
+                .flatMap { response -> accountStatisticRepository.save(createAccountStatistic(command, response)) }
                 .then()
     }
 
-    private fun createAccountStatistic(command: LoadTransactionsCommand) =
+    private fun createAccountStatistic(command: LoadTransactionsCommand, response: TransactionResponse) =
             AccountStatistic(UUID.randomUUID(), AccountStatisticRange(command.from, command.to), command.accountId,
-                    BigDecimal.TEN, mutableListOf(), mutableListOf())
+                    response.amount, mutableListOf(mapper.mapToTransaction(response)), mutableListOf())
 }
