@@ -11,8 +11,7 @@ import reactor.core.publisher.Flux
 class RestAsyncAccountHistoryClient(private val webClient: WebClient,
                                     private val webClientProperties: WebClientProperties)
     : AccountHistoryClient {
-
-
+    
     override fun findTransactionViews(request: TransactionRequest): Flux<TransactionResponse> {
 
         return webClient.get()
