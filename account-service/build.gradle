@@ -39,10 +39,6 @@ dependencies {
     testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '3.11.0'
 }
 
-configurations.all {
-    exclude group: "org.springframework.boot:spring-boot-starter-test", module: "junit:junit"
-}
-
 test {
     useJUnitPlatform()
 }
