@@ -82,6 +82,7 @@ internal class AccountStatisticsControllerIT {
                         Assertions.assertEquals(statistic.range.from.withNano(0), from.withNano(0))
                         Assertions.assertEquals(statistic.range.to.withNano(0), to.withNano(0))
                         Assertions.assertEquals(statistic.accountId, accountId)
+                        Assertions.assertNotNull(statistic.id)
                     }
                 }
                 .expectComplete().verify()
